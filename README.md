@@ -30,7 +30,9 @@ In [^3][^4], the authors argue that the flatness of minima of the loss function 
 
 
 [^1]: Choromanska A, Henaff M, Mathieu M, et al. The Loss Surfaces of Multilayer Networks\[J\]. Eprint Arxiv, 2014:192-204.
-[^3]: Hochreiter, Sepp and Schmidhuber, Jürgen. Flat minima. Neural
-Computation, 9(1):1–42, 1997.
+
+[^3]: Hochreiter, Sepp and Schmidhuber, Jürgen. Flat minima. Neural Computation, 9(1):1–42, 1997.
+
 [^4]: Keskar, Nitish Shirish, Mudigere, Dheevatsa, Nocedal, Jorge, Smelyanskiy, Mikhail, and Tang, Ping Tak Peter. On largebatch training for deep learning: Generalization gap and sharp minima. In ICLR’2017, arXiv:1609.04836, 2017.
+
 [^5]: Dinh L, Pascanu R, Bengio S, et al. Sharp Minima Can Generalize For Deep Nets\[J\]. 2017.
