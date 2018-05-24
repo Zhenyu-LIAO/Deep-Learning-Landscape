@@ -11,8 +11,13 @@ An (incomplete) overview of recent advances on the topic of Deep Learning Landsc
 ## 对于深度学习中的地貌的描述的进展
 * linear network
 * deep learning without poor local minima
+
 * single layer network
 * multi-layer network
+
+In [8], the author studies the autoencoder with one hidden layer and showed the equivalence between the local minimum and the global minimum with a characterization of the form of global minimum points. 
+
+In [^10], the author proves the existence of degenerate saddle points for deep linear neural networks with squared loss function and the fact that any local minimum is also a global minimum, with slightly weaker assumptions. The authors  simplify the proof proposed in [^11] and generlize the previous results with fewer assumptions.
 
 ## Hessian特性的问题 + 一些 empirical studies
 In [^1], the authors study the highly non-convex loss function of a simple model of the fully-connected feed-forward neural network with the spherical spin glass model. The following empirical observations are impressive:
@@ -36,3 +41,9 @@ In [^3][^4], the authors argue that the flatness of minima of the loss function 
 [^4]: Keskar, Nitish Shirish, Mudigere, Dheevatsa, Nocedal, Jorge, Smelyanskiy, Mikhail, and Tang, Ping Tak Peter. On largebatch training for deep learning: Generalization gap and sharp minima. In ICLR’2017, arXiv:1609.04836, 2017.
 
 [^5]: Dinh L, Pascanu R, Bengio S, et al. Sharp Minima Can Generalize For Deep Nets\[J\]. 2017.
+
+[^8]: Baldi P. Linear learning: landscapes and algorithms\[M\]// Advances in neural information processing systems 1. Morgan Kaufmann Publishers Inc. 1988:65-72.
+
+[^10]: Kawaguchi K. Deep Learning without Poor Local Minima\[J\]. 2016.
+
+[^11]: Lu H, Kawaguchi K. Depth Creates No Bad Local Minima\[J\]. 2017.
