@@ -25,7 +25,12 @@ In [^1], the authors study the highly non-convex loss function of a simple model
 * 实际中，刻意地在训练集上寻找全局最优点可能会导致过拟合
 ## Sharp/flat minima -> generalization 问题
 
+In [^3][^4], the authors argue that the flatness of minima of the loss function found by stochastic gradient-based methods will resulst  in good generalization performance. However, in [^5], the authors prove that sharp minima can generalize well when following several definitions of flatness.
 ## RMT分析深度学习地貌的相关工作
 
 
 [^1]: Choromanska A, Henaff M, Mathieu M, et al. The Loss Surfaces of Multilayer Networks\[J\]. Eprint Arxiv, 2014:192-204.
+[^3]: Hochreiter, Sepp and Schmidhuber, Jürgen. Flat minima. Neural
+Computation, 9(1):1–42, 1997.
+[^4]: Keskar, Nitish Shirish, Mudigere, Dheevatsa, Nocedal, Jorge, Smelyanskiy, Mikhail, and Tang, Ping Tak Peter. On largebatch training for deep learning: Generalization gap and sharp minima. In ICLR’2017, arXiv:1609.04836, 2017.
+[^5]: Dinh L, Pascanu R, Bengio S, et al. Sharp Minima Can Generalize For Deep Nets\[J\]. 2017.
