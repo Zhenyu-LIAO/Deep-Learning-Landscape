@@ -17,7 +17,11 @@ An (incomplete) overview of recent advances on the topic of Deep Learning Landsc
 
 In [Neural networks and principal component analysis](https://github.com/Zhenyu-LIAO/Deep-Learning-Landscape/blob/master/references/Neural%20networks%20and%20principal%20component%20analysis-%20Learning%20from%20examples%20without%20local%20minima.pdf), the author studies the autoencoder with one hidden layer and showed the equivalence between the local minimum and the global minimum with a characterization of the form of global minimum points. 
 
+早在1989年， 作者在 [Neural networks and principal component analysis](https://github.com/Zhenyu-LIAO/Deep-Learning-Landscape/blob/master/references/Neural%20networks%20and%20principal%20component%20analysis-%20Learning%20from%20examples%20without%20local%20minima.pdf)中研究了单隐层的线性自编码器中局部最优点和全局最优点的等价性。
+
 In [Deep Learning without Poor Local Minima](https://github.com/Zhenyu-LIAO/Deep-Learning-Landscape/blob/master/references/Deep%20Learning%20without%20Poor%20Local%20Minima.pdf), the author proves the existence of degenerate saddle points for deep linear neural networks with squared loss function and the fact that any local minimum is also a global minimum, with slightly weaker assumptions. The authors  simplify the proof proposed in [Depth Creates No Bad Local Minima](https://github.com/Zhenyu-LIAO/Deep-Learning-Landscape/blob/master/references/Depth%20Creates%20No%20Bad%20Local%20Minima.pdf) and generalize the previous results with fewer assumptions.
+
+NIPS 2016的一篇文章 [Deep Learning without Poor Local Minima](https://github.com/Zhenyu-LIAO/Deep-Learning-Landscape/blob/master/references/Deep%20Learning%20without%20Poor%20Local%20Minima.pdf) 证明了在满秩条件下，多层线性网络的所有局部极小是全局最小。对于多层非线性网络，作者在一个比较强的假设下：网络隐层中各结点的输出相互独立（假设了free？），得到了和多层线性网络一样的结论。[Depth Creates No Bad Local Minima](https://github.com/Zhenyu-LIAO/Deep-Learning-Landscape/blob/master/references/Depth%20Creates%20No%20Bad%20Local%20Minima.pdf) 中作者做了更弱的假设并且简化了证明。
 
 ## Hessian特性的问题 + 一些 empirical studies
 In [The Loss Surfaces of Multilayer Networks](https://github.com/Zhenyu-LIAO/Deep-Learning-Landscape/blob/master/references/The%20Loss%20Surfaces%20of%20Multilayer%20Networks.pdf), the authors study the highly non-convex loss function of a simple model of the fully-connected feed-forward neural network with the spherical spin glass model. The following empirical observations are impressive:
@@ -31,8 +35,16 @@ In [The Loss Surfaces of Multilayer Networks](https://github.com/Zhenyu-LIAO/Dee
 ## Sharp/flat minima -> generalization 问题
 
 In [^3][^4], the authors argue that the flatness of minima of the loss function found by stochastic gradient-based methods will resulst  in good generalization performance. However, in [^5], the authors prove that sharp minima can generalize well when following several definitions of flatness.
-## RMT分析深度学习地貌的相关工作
 
+## RMT分析深度学习地貌的相关工作
+In [The Loss Surfaces of Multilayer Networks](https://github.com/Zhenyu-LIAO/Deep-Learning-Landscape/blob/master/references/The%20Loss%20Surfaces%20of%20Multilayer%20Networks.pdf), the authors study the highly non-convex loss function of a simple model of the fully-connected feed-forward neural network with the spherical spin glass model.
+
+在 [The Loss Surfaces of Multilayer Networks](https://github.com/Zhenyu-LIAO/Deep-Learning-Landscape/blob/master/references/The%20Loss%20Surfaces%20of%20Multilayer%20Networks.pdf) 中，作者使用随机矩阵中经典的 spherical spin glass model 对神经网络高度非凸的损失函数进行建模。
+
+
+In [Geometry of neural network loss surfaces via random matrix theory](https://github.com/Zhenyu-LIAO/Deep-Learning-Landscape/blob/master/references/Geometry%20of%20neural%20network%20loss%20surfaces%20via%20random%20matrix%20theory.pdf), the authors introduce a new analytical framework for studying the Hessian matrix of a single-hidden-layer network without biases based on free probability and random matrix theory (RMT). A analysis formula is deduced for predicting the the index of critical points.
+
+在 [Geometry of neural network loss surfaces via random matrix theory](https://github.com/Zhenyu-LIAO/Deep-Learning-Landscape/blob/master/references/Geometry%20of%20neural%20network%20loss%20surfaces%20via%20random%20matrix%20theory.pdf) 中，作者引入了一种新的分析工具 free probability， 将单隐层网络的hessian矩阵建模成随机矩阵相加，利用free probability中的R变换给出了负特征值的个数的解析表达式。
 
 [1]: Choromanska A, Henaff M, Mathieu M, et al. The Loss Surfaces of Multilayer Networks\[J\]. Eprint Arxiv, 2014:192-204.
 
