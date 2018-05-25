@@ -15,9 +15,9 @@ An (incomplete) overview of recent advances on the topic of Deep Learning Landsc
 * single layer network
 * multi-layer network
 
-In [8], the author studies the autoencoder with one hidden layer and showed the equivalence between the local minimum and the global minimum with a characterization of the form of global minimum points. 
+In [Neural networks and principal component analysis](https://github.com/Zhenyu-LIAO/Deep-Learning-Landscape/blob/master/references/Neural%20networks%20and%20principal%20component%20analysis-%20Learning%20from%20examples%20without%20local%20minima.pdf), the author studies the autoencoder with one hidden layer and showed the equivalence between the local minimum and the global minimum with a characterization of the form of global minimum points. 
 
-In [10], the author proves the existence of degenerate saddle points for deep linear neural networks with squared loss function and the fact that any local minimum is also a global minimum, with slightly weaker assumptions. The authors  simplify the proof proposed in [11] and generalize the previous results with fewer assumptions.
+In [Deep Learning without Poor Local Minima](https://github.com/Zhenyu-LIAO/Deep-Learning-Landscape/blob/master/references/Deep%20Learning%20without%20Poor%20Local%20Minima.pdf), the author proves the existence of degenerate saddle points for deep linear neural networks with squared loss function and the fact that any local minimum is also a global minimum, with slightly weaker assumptions. The authors  simplify the proof proposed in [Depth Creates No Bad Local Minima](https://github.com/Zhenyu-LIAO/Deep-Learning-Landscape/blob/master/references/Depth%20Creates%20No%20Bad%20Local%20Minima.pdf) and generalize the previous results with fewer assumptions.
 
 ## Hessian特性的问题 + 一些 empirical studies
 In [The Loss Surfaces of Multilayer Networks](https://github.com/Zhenyu-LIAO/Deep-Learning-Landscape/blob/master/references/The%20Loss%20Surfaces%20of%20Multilayer%20Networks.pdf), the authors study the highly non-convex loss function of a simple model of the fully-connected feed-forward neural network with the spherical spin glass model. The following empirical observations are impressive:
