@@ -24,6 +24,8 @@ In [Deep Learning without Poor Local Minima](https://github.com/Zhenyu-LIAO/Deep
 NIPS 2016的一篇文章 [Deep Learning without Poor Local Minima](https://github.com/Zhenyu-LIAO/Deep-Learning-Landscape/blob/master/references/Deep%20Learning%20without%20Poor%20Local%20Minima.pdf) 证明了在满秩条件下，多层线性网络的所有局部极小是全局最小。对于多层非线性网络，作者在一个比较强的假设下：网络隐层中各结点的输出相互独立（假设了free？），得到了和多层线性网络一样的结论。[Depth Creates No Bad Local Minima](https://github.com/Zhenyu-LIAO/Deep-Learning-Landscape/blob/master/references/Depth%20Creates%20No%20Bad%20Local%20Minima.pdf) 中作者做了更弱的假设并且简化了证明。
 
 ## Hessian特性的问题 + 一些 empirical studies
+* We can talk about the Gauss-Newton decomposition here.
+
 In [The Loss Surfaces of Multilayer Networks](https://github.com/Zhenyu-LIAO/Deep-Learning-Landscape/blob/master/references/The%20Loss%20Surfaces%20of%20Multilayer%20Networks.pdf), the authors study the highly non-convex loss function of a simple model of the fully-connected feed-forward neural network with the spherical spin glass model. The following empirical observations are impressive:
 * For large-size networks, most local minima are equivalent and yield similar performance on a test set that is of similar nature.
 * The probability of finding a "bad" (with a high loss) local minimum is non-zero for small-size networks and decreases quickly as the network size grows large.
@@ -32,6 +34,13 @@ In [The Loss Surfaces of Multilayer Networks](https://github.com/Zhenyu-LIAO/Dee
 在[1]中，作者提出以下经验的结果：
 * 对于一个大型神经网络，大多数局部最优点在测试集上具有类似的泛化性能；
 * 实际中，刻意地在训练集上寻找全局最优点可能会导致过拟合
+
+In [Singularity of the Hessian in Deep Learning](https://github.com/Zhenyu-LIAO/Deep-Learning-Landscape/blob/master/references/Singularity%20of%20the%20Hessian%20in%20Deep%20Learning.pdf) and [Empirical Analysis of the Hessian of Over-Parametrized Neural Networks](https://github.com/Zhenyu-LIAO/Deep-Learning-Landscape/blob/master/references/Empirical%20Analysis%20of%20the%20Hessian%20of%20Over-Parametrized%20Neural%20Networks.pdf), the authors empirically show that the spectrum of the Hessian is composed of two parts: (1) the bulk centered near zero, (2) and outliers away from the bulk. The bulk depends on the number of parameters merely and indicates how over-parametized the network is. The outliers depend on the data distribution and indicate the complexity of the input data.
+
+
+在[Singularity of the Hessian in Deep Learning](https://github.com/Zhenyu-LIAO/Deep-Learning-Landscape/blob/master/references/Singularity%20of%20the%20Hessian%20in%20Deep%20Learning.pdf) and [Empirical Analysis of the Hessian of Over-Parametrized Neural Networks](https://github.com/Zhenyu-LIAO/Deep-Learning-Landscape/blob/master/references/Empirical%20Analysis%20of%20the%20Hessian%20of%20Over-Parametrized%20Neural%20Networks.pdf) 中，作者经验性地指出，Hessian矩阵的谱可以由两部分组成：集中在0附件的“bulk”以及远离“bulk”的离群点。其中，“bulk”仅仅由网络结构中的冗余决定，而离群点依赖于数据本身的分布。
+
+
 ## Sharp/flat minima -> generalization 问题
 
 In [^3][^4], the authors argue that the flatness of minima of the loss function found by stochastic gradient-based methods will resulst  in good generalization performance. However, in [^5], the authors prove that sharp minima can generalize well when following several definitions of flatness.
