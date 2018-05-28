@@ -2,11 +2,24 @@
 An (incomplete) overview of recent advances on the topic of Deep Learning Landscape. （我们用中文还是英文写？）
 
 ## 引言: 深度学习中的地貌(landscape)问题
-* 深度学习中的地貌定义
-* 重要性
-* 理论分析难点
-* 基本概念: 梯度(Jacobian), Hesian, 全局最小, 局部最小, 鞍点 (+图)
-* 深度学习中的优化: (随机)梯度下降...
+### 深度学习中的地貌定义
+### 重要性
+### 理论分析难点
+### 基本概念: 梯度(Jacobian), Hesian, 全局最小, 局部最小, 鞍点 (+图)
+
+Condiser a smooth fnction ![](http://latex.codecogs.com/gif.latex?f:\\mathbb{R}^n\\rightarrow\\mathbb{R}). ![](http://latex.codecogs.com/gif.latex?x) is a critical point iff ![](http://latex.codecogs.com/gif.latex?\\nabla{f(x)}=0). The critical points are further classified by considering the Hessian ![](http://latex.codecogs.com/gif.latex?\\nabla^2f(x)=0) of ![](http://latex.codecogs.com/gif.latex?\\f) at ![](http://latex.codecogs.com/gif.latex?x) :
+* If all eigenvalues of ![](http://latex.codecogs.com/gif.latex?\\nabla^2f(x)) are positive, critical point ![](http://latex.codecogs.com/gif.latex?x) is a local minimum;
+* If all eigenvalues of ![](http://latex.codecogs.com/gif.latex?\\nabla^2f(x)) are negative, critical point ![](http://latex.codecogs.com/gif.latex?x) is a local maximum;
+* If  eigenvalues of ![](http://latex.codecogs.com/gif.latex?\\nabla^2f(x)) are both positive and negative, critical point ![](http://latex.codecogs.com/gif.latex?x) is a min-max saddle point;
+* If there are zero eigenvalues of ![](http://latex.codecogs.com/gif.latex?\\nabla^2f(x)) at a saddle point ![](http://latex.codecogs.com/gif.latex?x), ![](http://latex.codecogs.com/gif.latex?x) is called a degenerate saddle.
+
+ 对于一个光滑函数 ![](http://latex.codecogs.com/gif.latex?f:\\mathbb{R}^n\\rightarrow\\mathbb{R}), ![](http://latex.codecogs.com/gif.latex?x) 是驻点当且仅当 ![](http://latex.codecogs.com/gif.latex?\\nabla{f(x)}=0). 驻点的类别由 Hessian矩阵 ![](http://latex.codecogs.com/gif.latex?\\nabla^2f(x)) 来判断：
+* 如果 ![](http://latex.codecogs.com/gif.latex?\\nabla^2f(x))的所有特征值为正, 驻点 ![](http://latex.codecogs.com/gif.latex?x) 是局部最小点;
+* 如果 ![](http://latex.codecogs.com/gif.latex?\\nabla^2f(x))的所有特征值为负, 驻点 ![](http://latex.codecogs.com/gif.latex?x) 是局部最大点；
+* 如果 ![](http://latex.codecogs.com/gif.latex?\\nabla^2f(x)) 特征值有正有负, 驻点 ![](http://latex.codecogs.com/gif.latex?x) 是鞍点;
+* 如果 在鞍点 ![](http://latex.codecogs.com/gif.latex?x)， ![](http://latex.codecogs.com/gif.latex?\\nabla^2f(x)) 有零特征值， 则称 ![](http://latex.codecogs.com/gif.latex?x) 为退化的鞍点.
+
+### 深度学习中的优化: (随机)梯度下降...
 
 ## 对于深度学习中的地貌的描述的进展
 * linear network
