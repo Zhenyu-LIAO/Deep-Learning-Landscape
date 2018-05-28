@@ -37,7 +37,12 @@ In [Deep Learning without Poor Local Minima](https://github.com/Zhenyu-LIAO/Deep
 NIPS 2016的一篇文章 [Deep Learning without Poor Local Minima](https://github.com/Zhenyu-LIAO/Deep-Learning-Landscape/blob/master/references/Deep%20Learning%20without%20Poor%20Local%20Minima.pdf) 证明了在满秩条件下，多层线性网络的所有局部极小是全局最小。对于多层非线性网络，作者在一个比较强的假设下：网络隐层中各结点的输出相互独立（假设了free？），得到了和多层线性网络一样的结论。[Depth Creates No Bad Local Minima](https://github.com/Zhenyu-LIAO/Deep-Learning-Landscape/blob/master/references/Depth%20Creates%20No%20Bad%20Local%20Minima.pdf) 中作者做了更弱的假设并且简化了证明。
 
 ## Hessian特性的问题 + 一些 empirical studies
-* We can talk about the Gauss-Newton decomposition here.
+The Gauss-Newton decomposition of the Hessian matrix
+
+Let  ![](http://latex.codecogs.com/gif.latex?l) donate the loss function and   ![](http://latex.codecogs.com/gif.latex?f) is the real-valued output of a network. Then the Hessian of the loss for a given example are given by  ![](http://latex.codecogs.com/gif.latex?\\nabla^2{l(w)}=l^{''}(f(w))\\nabla{f(w)}\\nabla{f(w)}^T+l^{'}(f(w))\\nabla^2{f(w)}). 
+
+Hessian矩阵的高斯牛顿分解:
+令 ![](http://latex.codecogs.com/gif.latex?l) 表示损失函数，![](http://latex.codecogs.com/gif.latex?f) 表示网络的输出。那么，损失函数的Hessian矩阵可分解为![](http://latex.codecogs.com/gif.latex?\\nabla^2{l(w)}=l^{''}(f(w))\\nabla{f(w)}\\nabla{f(w)}^T+l^{'}(f(w))\\nabla^2{f(w)})。
 
 In [The Loss Surfaces of Multilayer Networks](https://github.com/Zhenyu-LIAO/Deep-Learning-Landscape/blob/master/references/The%20Loss%20Surfaces%20of%20Multilayer%20Networks.pdf), the authors study the highly non-convex loss function of a simple model of the fully-connected feed-forward neural network with the spherical spin glass model. The following empirical observations are impressive:
 * For large-size networks, most local minima are equivalent and yield similar performance on a test set that is of similar nature.
