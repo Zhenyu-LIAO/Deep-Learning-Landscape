@@ -7,23 +7,41 @@ An (incomplete) overview of recent advances on the topic of Deep Learning **Land
 
 ## 引言: 深度学习中的地貌问题
 
-Learning = Representation + Evaluation + Optimization.
+在新的硬件(GPU)和网络结构(RNN, CNN, ResNet等等)以及被不断提升的各种优化算法的基础上, 从事深度学习的科学家和工程师们获得了前所未有的成功, 从而(再次)迎来了自2010年以来深度学习(深度神经网络)的一波新的发展热潮: 从机器视觉, 图像识别到语音分析, 自然语言处理, 一项一项的惊人成就被不断的突破, 全新的变革好像无时无刻不在发生. 这一波深度学习的浪潮仿佛在这短短十年之间就席卷了千家万户, 给人们的工作和生活带来了无法忽视的重大影响. 这些影响不仅仅局限在科学研究的层面, 借助科技公司的强大推力, 每个人的生活其实早已发生了变化, 人们甚至已经习惯了相对"机器"来说, 人在某些领域望尘莫及的这一事实: 越来越多的棋手选择了计算机作为自己的陪练, 越来越多的人们已经对精确的搜索结果和私人化的广告推送习以为常, 智能助手已经以手机或者音响的形式走进了千家万户. 这一切的一切看上去都是一片欣欣向荣的景象.
 
-(机器)学习 = 特征/表示 + (代价)评估 + 优化
+然而, 尽管深度学习在种种应用场景中都无一例外取得了惊艳的表现, 我们对于它本身的"科学"的认知, 还仿佛蹒跚学步的孩子, 被这趟风驰电骋的技术的火车远远的甩在了身后. 当大众都沉醉在一项一项基于深度学习的新技术勾勒出的美妙图景的时候, 很多人工智能的科研人员已经忧心忡忡的提出了下面这些疑惑:
+> 深度神经网络是不是新的"炼金术"?
+> 深度学习真的"学习"到了么?
+> 深度学习这个黑盒子里面装的到底是什么?
 
-来源: Domingos, Pedro. ”A few useful things to know about machine learning.” Communications of the ACM 55.10 (2012): 78-87.
+自2017年LeCun和Ali Rahimi针对"深度学习是不是炼金术"这一问题以来, 深度学习, 亦或者深度神经网络的理论工作已经吸引了越来越多的学者, 其中不乏各种大神级别的物理学家和数学家, 从各自的专业领域, 给大家带来对于深度学习的新的认识和理解. 在本文中, 我们将尝试梳理这些和深度学习有关的理论结果, 具体来说, 我们将围绕"深度学习中的地貌(landscape)问题"来展开讨论.
 
-自2010年以来深度学习(深度神经网络)再次迎来发展热潮的原因, 正是在新的硬件(GPU)和网络结构(RNN, CNN, ResNet等等)以及被不断提升的各种优化算法的基础上, 从事深度学习的科学家和工程师们获得了前所未有的成功. 
+### 深度学习的地貌: 是什么?
 
-深度学习中的优化难点: 高维, 非凸(non-convex) + 针对这两点具体解释 难点是什么???
+深度学习中的地貌问题, 事实上包含了几个相互关联但是又截然不同的研究方向. 事实上, 我们可以将深度学习看做一种更加广义的"曲线拟合"的问题: 我们希望, 能够找到一个好的模型, 尽可能准确的描绘给定的数据和对应目标的相互关系: 图像数据和"猫"或者"狗"的概念之间的关系, 股票数据和其涨跌之间的关系, 不同语言之间同义词或者近义词之间的联系. 而深度学习就给我们指明了这样一条做好"曲线拟合"的道路: 通过构建足够**深**的神经网络模型, 借助**海量**的数据和**基于梯度**(gradient-based)的优化方法, 我们往往能够获得一个很好的"曲线拟合"模型. 
 
-本文中, 我们主要着眼于深度学习问题中的优化部分. 更具体的来说, 对于一个任意的非凸损失函数(loss function), 找到其全局最小值(global minimum)往往是NP-complete的(参考[Some NP-complete problems in quadratic and nonlinear programming](https://link.springer.com/article/10.1007/BF02592948)). 非常不幸的是, 在[Training a 3-node neural network is NP-complete]()已经得到证明, 即使是训练非常简单神经网络事实上也是NP-complete的. 因此, 长期以来, **成功训练**一个神经网络一直被认为是非常困难, 甚至不可能的.
+再次检视深度学习的这几个关键点的时候, 下面几个问题就会自然而然的出现:
 
-(下面将会提到的一些概念将在后文中正式定义)
-然而, 随着我们对非凸问题的理解的不断深入, [When Are Nonconvex Problems Not Scary?]()一文的作者指出: 很多常见的非凸优化问题, 例如 phase retrieval, independent component analysis 以及 orthogonal tensor decomposition 等等, 都具有以下特点:
+* 深度神经网络是否真的能够拟合我们需要拟合的数据? 如果是, 我们需要多么**深**的网络才能做到这一点?
+* 目前被广泛使用的基于梯度的优化方法是有效的么? 它是不是总能帮我们找到我们渴望的"好的"拟合模型?
+* 单纯的"数据拟合"真的足够了么? 事实上, 我们期望的是, 通过有限的训练数据, 获得一套所谓的"普适规则". 真正的目的是这套获得的规则也能够应用于更多更广的数据(即, 不仅仅局限于用来训练的那些数据). 我们将模型的这种"能够推广到更广泛数据"的能力称之为**泛化性能(generalization performance)**. 因此, 我们的问题事实上是: 神经网络的泛化能力到底如何呢?
+
+这些问题, 都可以广义的被总结为深度学习中的地貌问题. 具体来说, 深度学习中的地貌问题研究的是, 深度神经网络**模型**以及对应的**优化方法**和其**性能**(在训练集上的表现, 或者其泛化性能)之间的关系. 从某种意义上讲, 它几乎涵盖了关于神经网络的绝大多数理论研究方向.
+
+### 深度学习的地貌: 为什么?
+
+* 重要性
+* 难点: 高维, 非凸(non-convex) + 针对这两点具体解释 难点是什么???
+
+
+具体来说, 对于一个任意的非凸损失函数(loss function), 找到其全局最小值(global minimum)往往是NP-complete的(参考[Some NP-complete problems in quadratic and nonlinear programming](https://link.springer.com/article/10.1007/BF02592948)). 非常不幸的是, 在[Training a 3-node neural network is NP-complete](https://github.com/Zhenyu-LIAO/Deep-Learning-Landscape/blob/master/references/Training%20a%203-node%20neural%20network%20is%20NP-complete.pdf)已经得到证明, 即使是训练非常简单神经网络事实上也是NP-complete的. 因此, 长期以来, **成功训练**一个神经网络一直被认为是非常困难, 甚至不可能的.
+
+(下面将会提到的一些概念将在后文中给出正式的定义)
+
+然而, 随着我们对非凸问题的理解的不断深入, [When Are Nonconvex Problems Not Scary?](https://github.com/Zhenyu-LIAO/Deep-Learning-Landscape/blob/master/references/When%20Are%20Nonconvex%20Problems%20Not%20Scary%3F.pdf)一文的作者指出: 很多常见的非凸优化问题, 例如 phase retrieval, independent component analysis 以及 orthogonal tensor decomposition等等, 都具有以下特点:
 
 * 所有的局部最小值都是(等价的)全局最小值 (all local minima are also global)
-* 在任何鞍点的"附近", 目标损失函数都具有一个具有**负数曲率**的(下降)方向(around any saddle point the objective function has a negative directional curvature), 因此有沿着这个方向继续下降(使目标损失函数的值继续减小)的可能, 进一步的, 这提供了一种"有效地寻找到**全局最小值**"的可能性.
+* 在任何鞍点的"附近", 目标损失函数都具有一个具有**负数曲率**的(下降)方向(a negative directional curvature), 因此有沿着这个方向继续下降(使目标损失函数的值继续减小)的可能, 进一步的, 这提供了一种"有效地寻找到**全局最小值**"的可能性.
 
 因而是有希望实现有效的优化的.
 
@@ -37,13 +55,15 @@ to-do list
 * 我们是否需要获得全局最小值? 是否**局部最小值**或者**鞍点**就可以保证很好的泛化性能[Are Saddles Good Enough for Deep Learning?]
 * 如果是的, 具有怎样特征的局部最小值或者鞍点才能够获得良好的泛化性能?
 
-### 深度学习中的地貌定义
-### 重要性
-### 理论分析难点
+Learning = Representation + Evaluation + Optimization.
+
+(机器)学习 = 特征/表示 + (代价)评估 + 优化
+
+来源: Domingos, Pedro. "A few useful things to know about machine learning." Communications of the ACM 55.10 (2012): 78-87.
+
 ### 基本概念
 
 梯度和Jacobian矩阵, Hesian矩阵, 损失地貌的全局最小, 局部最小和鞍点(saddle point)
-
 
 Consider a smooth function ![](http://latex.codecogs.com/gif.latex?l:\\mathbb{R}^n\\rightarrow\\mathbb{R}). ![](http://latex.codecogs.com/gif.latex?x) is a critical point iff ![](http://latex.codecogs.com/gif.latex?\\nabla{l(x)}=0). The critical points are further classified by considering the Hessian ![](http://latex.codecogs.com/gif.latex?\\nabla^2l(x)=0) of ![](http://latex.codecogs.com/gif.latex?\\f) at ![](http://latex.codecogs.com/gif.latex?x) :
 * If all eigenvalues of ![](http://latex.codecogs.com/gif.latex?\\nabla^2l(x)) are positive, critical point ![](http://latex.codecogs.com/gif.latex?x) is a local minimum;
