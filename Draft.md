@@ -38,8 +38,11 @@ An (incomplete) overview of recent advances on the topic of Deep Learning **Land
 深度学习问题的**高维**特点体现在很多方面, 比如:
 
 * 高维数据: 在机器视觉, 自然语言处理, 语音识别等等深度学习获得重大突破的领域, 数据无一例外的有**海量**和**高维**两个特点. 海量意味着用以训练的数据数目非常多, 而高维则代表每个数据"很大": 例如, 知名的计算机视觉数据集 [MNIST](http://yann.lecun.com/exdb/mnist/) 和 [ImageNet](http://www.image-net.org/) 中图片数据的维度就分别是$28\times 28 = 784$和$256\times 256= 65536$(常用彩色). 事实上, 实验已经证明[ref?], 对于少量或者低维的数据, 深度神经网络相对于传统机器学习方法来说优势并不明显, 甚至在有些时候远远不如. 为什么高维问题会非常困难呢? 事实上, 机器学习中高维问题已经是一个老生常谈的话题了: 在传统统计学习(statistical learning)的框架下, 我们常常称之为**维度灾难(curse of dimensionality)**. 常见的两种理解如下:
-    * 空间稀疏性和指数上升的训练数据数目: 在机器学习经典教材 Pattern Recognition and Machine Learning(PRML by Bishop) 一书中就提到的是这个角度
-    * 高维空间中反直觉(counterintuitive): 例如不同数据点之间的欧氏距离几乎约等于一个常数, 无论远近(在分类问题中: 同类还是不同类), 这就导致了, 很多基于低维空间(3D)直觉的算法在高维数据上行不通(例如最邻近搜索:nearest neighbor search. 数据之间的距离都差不多, 而不是距离近的同一类, 远的是不同类)
+    * 需要指数增长的训练数据数目: 在机器学习经典教材 Pattern Recognition and Machine Learning(PRML by Bishop) 一书中就提到的是这个角度
+    * 高维空间中反直觉(counterintuitive): 例如不同数据点之间的欧氏距离几乎约等于一个常数, 无论远近(在分类问题中: 同类还是不同类), 这就导致了, 很多基于低维空间(3D)直觉的算法在高维数据上行不通(例如最邻近搜索:nearest neighbor search. 数据之间的距离都差不多, 而不是距离近的同一类, 远的是不同类). 亦或是高维空间的体积分布和我们熟悉的三维非常不同.
+
+    To-do list:
+    
     * [Cover's theorem](https://en.wikipedia.org/wiki/Cover%27s_theorem) 和(大概率)线性可分, 与核方法(kernel method)的联系
     * 流形学习(manifold learning) 信息的维度, 噪声的维度和数据的维度
     * https://zhuanlan.zhihu.com/p/27488363
@@ -104,7 +107,12 @@ Consider a smooth function ![](http://latex.codecogs.com/gif.latex?l:\\mathbb{R}
 
 (图片来源: Ian Goodfellow [Deep Learning](http://www.deeplearningbook.org/) Section 4)
 
-(分层的)莫尔斯理论(Stratified Morse Theory): 非常方便的分析一个流形(manifold)的拓扑的方法.
+
+
+### 几种尝试的方向
+
+* 地貌的渐进分析: spin-glass模型, 
+* 空间角度的分析: (分层的)莫尔斯理论(Stratified Morse Theory): 非常方便的分析一个流形(manifold)的拓扑的方法.
 
 ### 深度学习中的优化: (随机)梯度下降...
 
