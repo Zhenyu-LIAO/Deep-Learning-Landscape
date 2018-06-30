@@ -41,20 +41,20 @@
 
 另外, 对于光滑的损失函数 ![](http://latex.codecogs.com/gif.latex?l), Hessian矩阵是对称阵, 可以写成谱分解写成![](http://latex.codecogs.com/gif.latex?U\\Sigma{U^T}=\\sum{u_iu_i^T}\\sigma_i) 其中![](http://latex.codecogs.com/gif.latex?(\\sigma_i,u_i)) 为对应的特征值和特征向量.
 
-显然, 在地貌问题中, Hessian矩阵扮演着一个非常重要的角色. 根据上面的定义, 其特征值直接决定了空间中对应点附近邻域中的损失函数 ![](http://latex.codecogs.com/gif.latex?\ l ) 的值, 即:
+显然, 在地貌问题中, Hessian矩阵扮演着一个非常重要的角色. 根据上面的定义, 其特征值直接决定了空间中对应点附近邻域中的损失函数 ![](http://latex.codecogs.com/gif.latex?l) 的值, 即:
 
-* 如果该点(记为 ![](http://latex.codecogs.com/gif.latex?\ W ))为局部最小值, 则附近邻域的损失函数值都**严格大于**其对应的损失函数 ![](http://latex.codecogs.com/gif.latex?\ l(W) ). 对应的结果就是, 当算法在 ![](http://latex.codecogs.com/gif.latex?\ W ) 点并尝试进行下一步移动是, 附近空间的每个方向都一定导致损失函数增大.
-* 如该点为局部最大值, 则附近邻域的损失函数值都**严格小于**其对应的损失函数 ![](http://latex.codecogs.com/gif.latex?\ l(W) ), 因此, 当算法在 ![](http://latex.codecogs.com/gif.latex?\ W ) 点并尝试进行下一步移动是, 附近空间的每个方向都一定导致损失函数减小.
-* 如果该点为鞍点, 则附近邻域的损失函数值都可能大于, 小于或者等于其对应的损失函数 ![](http://latex.codecogs.com/gif.latex?\ l(W) ), 因此, 当算法在 ![](http://latex.codecogs.com/gif.latex?\ W ) 点并尝试进行下一步移动是, 附近空间的存在一些方向可以使损失函数增大, 另一些方向使其减小, 还有一些方向则不会使之发生变化.
+* 如果该点(记为 ![](http://latex.codecogs.com/gif.latex?W))为局部最小值, 则附近邻域的损失函数值都**严格大于**其对应的损失函数 ![](http://latex.codecogs.com/gif.latex?l(W)). 对应的结果就是, 当算法在 ![](http://latex.codecogs.com/gif.latex?W) 点并尝试进行下一步移动是, 附近空间的每个方向都一定导致损失函数增大.
+* 如该点为局部最大值, 则附近邻域的损失函数值都**严格小于**其对应的损失函数 ![](http://latex.codecogs.com/gif.latex?l(W)), 因此, 当算法在 ![](http://latex.codecogs.com/gif.latex?W) 点并尝试进行下一步移动是, 附近空间的每个方向都一定导致损失函数减小.
+* 如果该点为鞍点, 则附近邻域的损失函数值都可能大于, 小于或者等于其对应的损失函数 ![](http://latex.codecogs.com/gif.latex?l(W)), 因此, 当算法在 ![](http://latex.codecogs.com/gif.latex?W) 点并尝试进行下一步移动是, 附近空间的存在一些方向可以使损失函数增大, 另一些方向使其减小, 还有一些方向则不会使之发生变化.
 
-当![](http://latex.codecogs.com/gif.latex?\ W ) 为一维时, 图示如下:
+当![](http://latex.codecogs.com/gif.latex?W) 为一维时, 图示如下:
 
 <img src='https://d.pr/i/kEUPNf+'>
 (图片来源: Ian Goodfellow [Deep Learning](http://www.deeplearningbook.org/) Section 4)
 
 可以为什么Hessian矩阵能够告诉我们这些信息呢? 下面, 我们再来审视一下Hessian矩阵的特征值到底意味着什么:
 
-考虑一个驻点 ![](http://latex.codecogs.com/gif.latex?W^* ), 对于该点附近邻域的另一点![](http://latex.codecogs.com/gif.latex?\ W ), 我们对损失函数![](http://latex.codecogs.com/gif.latex?\ l(W) ) 进行泰勒展开可以得到: ![](http://latex.codecogs.com/gif.latex?\ l(W) \\approx l(W^*) + (W - W^*)^T \\nabla l(W^*) + \\frac12 (W - W^*)^T H(W^*) (W - W^*)  ). 其中 ![](http://latex.codecogs.com/gif.latex?\ \\nabla l(W^*) ) 为 ![](http://latex.codecogs.com/gif.latex?\ W^* ) 对应的梯度, ![](http://latex.codecogs.com/gif.latex?\ H(W^*) ) 为对应Hessian矩阵, ![](http://latex.codecogs.com/gif.latex?\ W-W^* ) 就是我们从![](http://latex.codecogs.com/gif.latex?\ W^* ) 移动到 ![](http://latex.codecogs.com/gif.latex?W ) 的这一步(包含大小和方向).
+考虑一个驻点 ![](http://latex.codecogs.com/gif.latex?W^*), 对于该点附近邻域的另一点![](http://latex.codecogs.com/gif.latex?W), 我们对损失函数![](http://latex.codecogs.com/gif.latex?l(W)) 进行泰勒展开可以得到: ![](http://latex.codecogs.com/gif.latex?l(W)\\approxl(W^*) + (W - W^*)^T \\nabla l(W^*) + \\frac12 (W - W^*)^T H(W^*) (W - W^*)  ). 其中 ![](http://latex.codecogs.com/gif.latex?\ \\nabla l(W^*) ) 为 ![](http://latex.codecogs.com/gif.latex?\ W^* ) 对应的梯度, ![](http://latex.codecogs.com/gif.latex?\ H(W^*) ) 为对应Hessian矩阵, ![](http://latex.codecogs.com/gif.latex?\ W-W^* ) 就是我们从![](http://latex.codecogs.com/gif.latex?\ W^* ) 移动到 ![](http://latex.codecogs.com/gif.latex?W ) 的这一步(包含大小和方向).
 
 根据定义我们有 ![](http://latex.codecogs.com/gif.latex?\ \\nabla l(W^*) = 0 ), 因此, ![](http://latex.codecogs.com/gif.latex?\ W ) 和 ![](http://latex.codecogs.com/gif.latex?\ W^* ) 对应损失函数的差别即为 ![](http://latex.codecogs.com/gif.latex?\ l(W) - l(W^*) \\approx  \\frac12 (W - W^*)^T H(W^*) (W - W^*)  ). 通过对应Hessian矩阵的谱分解, 我们得到 ![](http://latex.codecogs.com/gif.latex?\ l(W) - l(W^*) \\approx  \\frac12 (W - W^*)^T U_H \\Sigma_H U_H^T (W - W^*) = \\sum \\sigma_i \\frac12 (W - W^*)^T u_i u_i^T (W - W^*)  ).
 
