@@ -29,13 +29,7 @@
 
 我们首先介绍一些和地貌问题有关的基本概念：梯度, Hesian矩阵, 损失地貌的全局最小, 局部最小和鞍点(saddle point)
 
-Consider a smooth function ![](http://latex.codecogs.com/gif.latex?l:\\mathbb{R}^n\\rightarrow\\mathbb{R}). ![](http://latex.codecogs.com/gif.latex?x) is a critical point iff ![](http://latex.codecogs.com/gif.latex?\\nabla{l(x)}=0). The critical points are further classified by considering the Hessian ![](http://latex.codecogs.com/gif.latex?\\nabla^2l(x)=0) of ![](http://latex.codecogs.com/gif.latex?\\f) at ![](http://latex.codecogs.com/gif.latex?x) :
-* If all eigenvalues of ![](http://latex.codecogs.com/gif.latex?\\nabla^2l(x)) are positive, critical point ![](http://latex.codecogs.com/gif.latex?x) is a local minimum;
-* If all eigenvalues of ![](http://latex.codecogs.com/gif.latex?\\nabla^2l(x)) are negative, critical point ![](http://latex.codecogs.com/gif.latex?x) is a local maximum;
-* If  eigenvalues of ![](http://latex.codecogs.com/gif.latex?\\nabla^2l(x)) are both positive and negative, critical point ![](http://latex.codecogs.com/gif.latex?x) is a min-max saddle point;
-* If there are zero eigenvalues of ![](http://latex.codecogs.com/gif.latex?\\nabla^2l(x)) at a saddle point ![](http://latex.codecogs.com/gif.latex?x), ![](http://latex.codecogs.com/gif.latex?x) is called a degenerate saddle. 
-
-对于一个光滑的损失函数 ![](http://latex.codecogs.com/gif.latex?l:\\mathbb{R}^n\\rightarrow\\mathbb{R}), ![](http://latex.codecogs.com/gif.latex?x) 是该损失函数的**驻点(stationary point)**当且仅当 ![](http://latex.codecogs.com/gif.latex?\\nabla{l(x)}=0). 驻点的类别由 **Hessian矩阵** ![](http://latex.codecogs.com/gif.latex?\\nabla^2l(x)) 来判断：
+对于一个光滑的损失函数 ![](http://latex.codecogs.com/gif.latex?l:\\mathbb{R}^n\\rightarrow\\mathbb{R}), ![](http://latex.codecogs.com/gif.latex?x) 是该损失函数的**驻点(stationary point)**当且仅当对应梯度 ![](http://latex.codecogs.com/gif.latex?\\nabla{l(x)}=0). 驻点的类别由 **Hessian矩阵** ![](http://latex.codecogs.com/gif.latex?\\nabla^2l(x)) 来判断：
 * 如果 ![](http://latex.codecogs.com/gif.latex?\\nabla^2l(x) )的所有特征值为正, 驻点 ![](http://latex.codecogs.com/gif.latex?x) 是**局部最小点**;
 * 如果 ![](http://latex.codecogs.com/gif.latex?\\nabla^2l(x))的所有特征值为负, 驻点 ![](http://latex.codecogs.com/gif.latex?x) 是**局部最大点**；
 * 如果 ![](http://latex.codecogs.com/gif.latex?\\nabla^2l(x)) 特征值有正有负, 驻点 ![](http://latex.codecogs.com/gif.latex?x) 是**鞍点**;
@@ -70,14 +64,9 @@ Consider a smooth function ![](http://latex.codecogs.com/gif.latex?l:\\mathbb{R}
 <img src='https://d.pr/i/NKLDNT+'>
 (图片来源: Ian Goodfellow [Deep Learning](http://www.deeplearningbook.org/) Section 4)
 
-**备注2**: 一个非常有意思的问题是, 如果算法并严格不沿着对应特征向量的方向移动的时候, 会发生什么呢? 换言之, 如果移动方向在不同符号特征值对应的特征值向量上都有不为零的分量, 那么会发生什么的? 算法会下降还是上升呢?  为了讨论这个问题, 我们考虑对应问题的**连续**版本: 即, 算法可以在空间![](http://latex.codecogs.com/gif.latex?\ \\Xi ) 中连续的移动, 自变量变为时间![](http://latex.codecogs.com/gif.latex?\ t ). 也就是说, 随着时间变化, 算法在空间中画出一条连续的轨迹. 此时, 之前的式子变成: ![](http://latex.codecogs.com/gif.latex?\ \\frac{d W}{d t} =  )
-
-
-首先需要注意的是, 当使用基于梯度的优化方法的时候
-
-
-
-
+**备注2**: 一个非常有意思的问题是, 如果算法并严格不沿着对应特征向量的方向移动的时候, 会发生什么呢? 换言之, 如果移动方向在不同符号特征值对应的特征值向量上都有不为零的分量, 那么会发生什么的? 算法会下降还是上升呢?  为了讨论这个问题, 我们考虑对应问题的**连续**版本: 即, 算法可以在空间![](http://latex.codecogs.com/gif.latex?\ \\Xi ) 中连续的移动, 自变量变为时间![](http://latex.codecogs.com/gif.latex?\ t ). 也就是说, 随着时间变化, 算法在空间中画出一条连续的轨迹. 我们知道这样的连续系统中会出现**指数收敛**的情况, 举一个一维情况下的例子, 考虑一个由如下常微分方程(ODE)表述的动力系统: ![](http://latex.codecogs.com/gif.latex?\ \\frac{d x }{d t} = \\alpha x ), ![](http://latex.codecogs.com/gif.latex?\ x = 0 ) 是该系统的一个平衡点(或者驻点, 由于对应梯度为零), 而这样的方程的解为 ![](http://latex.codecogs.com/gif.latex?\ x= x_0 \\exp (\\alpha t) ), 其中![](http://latex.codecogs.com/gif.latex?\ x_0 ) 为其初值(初始位置). 因此, 当![](http://latex.codecogs.com/gif.latex?\ \\alpha >0 ) 时, ![](http://latex.codecogs.com/gif.latex?\ x ) 将会随时间指数增大, 从而远离对应的驻点(**发散**). 相反的, 如果![](http://latex.codecogs.com/gif.latex?\ \\alpha <0 ), ![](http://latex.codecogs.com/gif.latex?\ x ) 将会随时间指数减小至零, 从而收敛到对应的驻点(**收敛**).  事实上, 在上述的梯度系统中, 也有类似的情况发生. 当我们考虑一个对应驻点附近的线性空间的时候, 我们总可以通过线性变化将算法移动的方向投影在Hessian特征向量所确定的坐标系中. 那么, 对应正特征值方向上的投影的部分就是指数发散, 从而导致我们离开对应的驻点![](http://latex.codecogs.com/gif.latex?\ W^* ). 因此, 我们可以总结, 一旦我们移动的方向在对应正特征值方向上投影不为零, 算法的运动轨迹就会飞速的远离对应驻点. 当且仅当移动方向垂直于**所有**正特征值对应特征向量确定的空间的之后, 我们才会靠近对应驻点. 如下图所示:
+<img src='https://d.pr/i/9sG7VF+' style="width:200px;height:200px;">
+基于上面的描述, 我们就有了一种描述算法在一个对应驻点附近运动情况的方法: 如果依旧在线性空间的基础上考虑, 我们可以将该驻点邻域空间划分成三个子空间: 稳定(stable), 对应Hessian特征值为负; 不稳定(unstable), 对应特征值为正数和对应特征值为零的(center). 根据对应线性子空间的维度来判断算法被该驻点**吸引**的可能性大小(通常称之为分析basin of attraction). 事实上, [Morse theory](https://en.wikipedia.org/wiki/Morse_theory)给出了非退化驻点(non-degenerate critical point, 对应Hessain矩阵不包含零特征值)的一些很有趣/很强的结果, 然而对应退化的驻点, 更近一步说, 退化的鞍点则需要进一步更加深入的研究.
 
 ### 深度学习的地貌: 为什么?
 
@@ -115,28 +104,9 @@ Consider a smooth function ![](http://latex.codecogs.com/gif.latex?l:\\mathbb{R}
 
 事实上, 问题远远比这更加复杂. 在上文中, 我们一直在讨论的是深度神经网络中的**训练**的问题, 即, 针对于一组给定的*训练数据*, 我们如何通过有效的优化手段(算法)训练我们的神经网络, 使网络的输出能够成功**拟合**这部分训练数据, 通常情况下, 找到对应的目标损失函数的**全局最小值**. 然而, 在机器学习或者深度学习中, 真正的核心问题的是**泛化性能**(generalization performance)，成功拟合了训练数据并不保证泛化性能. 事实上, 往往训练集找到的全局最优点在测试集的表现很差。 更令人困惑的是，大量实验表明，局部最优点甚至鞍点貌似具有相似的泛化性能。遗憾的是, 由于神经网络其复杂的结构, 基于传统统计学习方法的, 对于泛化性能的估计往往比较悲观, 事实上, 一批又一批的科研工作者投身理解深度模型泛化的理论工作中.
 
-* 深度神经网络中的欠拟合(under-fitting)和过拟合(over-fitting): over-parametric NNs...
 * 我们是否需要获得全局最小值? 是否**局部最小值**或者**鞍点**就可以保证很好的泛化性能. 例如: [Are Saddles Good Enough for Deep Learning?](https://arxiv.org/pdf/1706.02052.pdf)
-* 如果是的, 具有怎样特征的局部最小值或者鞍点才能够获得良好的泛化性能?
+* 如果是的, 具有怎样特征(比如, 对应Hessian或者Jacobian矩阵)的局部最小值或者鞍点才能够获得良好的泛化性能? 
 
 
 
-
-
-
-### 几种尝试的方向
-
-* 地貌的渐进分析: spin-glass模型, 
-* 空间角度的分析: (分层的)莫尔斯理论(Stratified Morse Theory): 非常方便的分析一个流形(manifold)的拓扑的方法.
-
-### 深度学习中的优化: (随机)梯度下降...
-
-
-Jacobian矩阵则(某种意义上)描绘了输入输出的对应变化关系: 和深度神经网络稳定性的关系
-
- To-do list:
-     
-* [Cover's theorem](https://en.wikipedia.org/wiki/Cover%27s_theorem) 和(大概率)线性可分, 与核方法(kernel method)的联系
-* 流形学习(manifold learning) 信息的维度, 噪声的维度和数据的维度
-* https://zhuanlan.zhihu.com/p/27488363
 

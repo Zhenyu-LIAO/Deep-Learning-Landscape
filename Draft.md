@@ -116,6 +116,21 @@ Consider a smooth function ![](http://latex.codecogs.com/gif.latex?l:\\mathbb{R}
 
 ### 深度学习中的优化: (随机)梯度下降...
 
+
+Jacobian矩阵则(某种意义上)描绘了输入输出的对应变化关系: 和深度神经网络稳定性的关系
+
+ To-do list:
+     
+* [Cover's theorem](https://en.wikipedia.org/wiki/Cover%27s_theorem) 和(大概率)线性可分, 与核方法(kernel method)的联系
+* 流形学习(manifold learning) 信息的维度, 噪声的维度和数据的维度
+* https://zhuanlan.zhihu.com/p/27488363
+
+Consider a smooth function ![](http://latex.codecogs.com/gif.latex?l:\\mathbb{R}^n\\rightarrow\\mathbb{R}). ![](http://latex.codecogs.com/gif.latex?x) is a critical point iff ![](http://latex.codecogs.com/gif.latex?\\nabla{l(x)}=0). The critical points are further classified by considering the Hessian ![](http://latex.codecogs.com/gif.latex?\\nabla^2l(x)=0) of ![](http://latex.codecogs.com/gif.latex?\\f) at ![](http://latex.codecogs.com/gif.latex?x) :
+* If all eigenvalues of ![](http://latex.codecogs.com/gif.latex?\\nabla^2l(x)) are positive, critical point ![](http://latex.codecogs.com/gif.latex?x) is a local minimum;
+* If all eigenvalues of ![](http://latex.codecogs.com/gif.latex?\\nabla^2l(x)) are negative, critical point ![](http://latex.codecogs.com/gif.latex?x) is a local maximum;
+* If  eigenvalues of ![](http://latex.codecogs.com/gif.latex?\\nabla^2l(x)) are both positive and negative, critical point ![](http://latex.codecogs.com/gif.latex?x) is a min-max saddle point;
+* If there are zero eigenvalues of ![](http://latex.codecogs.com/gif.latex?\\nabla^2l(x)) at a saddle point ![](http://latex.codecogs.com/gif.latex?x), ![](http://latex.codecogs.com/gif.latex?x) is called a degenerate saddle. 
+
 ## 对于深度学习中的地貌的描述的进展
 * linear network
 * deep learning without poor local minima
