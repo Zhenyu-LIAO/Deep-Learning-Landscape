@@ -37,9 +37,9 @@
 
 在了解了上面定义的基础上, 我们正式给出一直谈到的**地貌**问题的定义:
 
->考虑权重矩阵 ![](http://latex.codecogs.com/gif.latex?\ W = (W_1,\\ldots,W_H )) 所构成的空间 ![](http://latex.codecogs.com/gif.latex?\ \\Xi), 空间中的每一点和一个(不同的)神经网络模型一一对应, 并且对应一个唯一的损失函数 ![](http://latex.codecogs.com/gif.latex?\ l(W)) 的值 (反之不然, 同一个损失函数值可能对应多个不同的![](http://latex.codecogs.com/gif.latex?\ W )). 深度学习地貌问题讨论的就是该空间中点和对应损失函数之间的关系以及不同的算法对于该空间的搜索能力(即, 不同的算法在空间中的运动轨迹).
+>考虑权重矩阵 ![](http://latex.codecogs.com/gif.latex?W = (W_1,...,W_H)) 所构成的空间 ![](http://latex.codecogs.com/gif.latex?\\Xi), 空间中的每一点和一个(不同的)神经网络模型一一对应, 并且对应一个唯一的损失函数 ![](http://latex.codecogs.com/gif.latex?l(W)) 的值 (反之不然, 同一个损失函数值可能对应多个不同的![](http://latex.codecogs.com/gif.latex?W )). 深度学习地貌问题讨论的就是该空间中点和对应损失函数之间的关系以及不同的算法对于该空间的搜索能力(即, 不同的算法在空间中的运动轨迹).
 
-另外, 对于光滑的损失函数 ![](http://latex.codecogs.com/gif.latex?\ l ), Hessian矩阵是对称阵, 可以写成谱分解写成![](http://latex.codecogs.com/gif.latex?\ U \\Sigma U^T = \\sum u_i u_i^T \\sigma_i ) 其中![](http://latex.codecogs.com/gif.latex?\ (\\sigma_i, u_i) ) 为对应的特征值和特征向量.
+另外, 对于光滑的损失函数 ![](http://latex.codecogs.com/gif.latex?l), Hessian矩阵是对称阵, 可以写成谱分解写成![](http://latex.codecogs.com/gif.latex?U\\Sigma U^T = \\sum u_i u_i^T \\sigma_i ) 其中![](http://latex.codecogs.com/gif.latex?(\\sigma_i, u_i) ) 为对应的特征值和特征向量.
 
 显然, 在地貌问题中, Hessian矩阵扮演着一个非常重要的角色. 根据上面的定义, 其特征值直接决定了空间中对应点附近邻域中的损失函数 ![](http://latex.codecogs.com/gif.latex?\ l ) 的值, 即:
 
