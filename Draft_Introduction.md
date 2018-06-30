@@ -37,9 +37,9 @@
 
 在了解了上面定义的基础上, 我们正式给出一直谈到的**地貌**问题的定义:
 
->考虑权重矩阵 ![](http://latex.codecogs.com/gif.latex?W = (W_1,...,W_H)) 所构成的空间 ![](http://latex.codecogs.com/gif.latex?\\Xi), 空间中的每一点和一个(不同的)神经网络模型一一对应, 并且对应一个唯一的损失函数 ![](http://latex.codecogs.com/gif.latex?l(W)) 的值 (反之不然, 同一个损失函数值可能对应多个不同的![](http://latex.codecogs.com/gif.latex?W )). 深度学习地貌问题讨论的就是该空间中点和对应损失函数之间的关系以及不同的算法对于该空间的搜索能力(即, 不同的算法在空间中的运动轨迹).
+>考虑权重矩阵 ![](http://latex.codecogs.com/gif.latex?W=(W_1,...,W_H)) 所构成的空间 ![](http://latex.codecogs.com/gif.latex?\\Xi), 空间中的每一点和一个(不同的)神经网络模型一一对应, 并且对应一个唯一的损失函数 ![](http://latex.codecogs.com/gif.latex?l(W)) 的值 (反之不然, 同一个损失函数值可能对应多个不同的![](http://latex.codecogs.com/gif.latex?W)). 深度学习地貌问题讨论的就是该空间中点和对应损失函数之间的关系以及不同的算法对于该空间的搜索能力(即, 不同的算法在空间中的运动轨迹).
 
-另外, 对于光滑的损失函数 ![](http://latex.codecogs.com/gif.latex?l), Hessian矩阵是对称阵, 可以写成谱分解写成![](http://latex.codecogs.com/gif.latex?U\\Sigma U^T = \\sum u_i u_i^T \\sigma_i ) 其中![](http://latex.codecogs.com/gif.latex?(\\sigma_i, u_i) ) 为对应的特征值和特征向量.
+另外, 对于光滑的损失函数 ![](http://latex.codecogs.com/gif.latex?l), Hessian矩阵是对称阵, 可以写成谱分解写成![](http://latex.codecogs.com/gif.latex?U\\Sigma{U^T}=\\sum{u_iu_i^T}\\sigma_i) 其中![](http://latex.codecogs.com/gif.latex?(\\sigma_i,u_i)) 为对应的特征值和特征向量.
 
 显然, 在地貌问题中, Hessian矩阵扮演着一个非常重要的角色. 根据上面的定义, 其特征值直接决定了空间中对应点附近邻域中的损失函数 ![](http://latex.codecogs.com/gif.latex?\ l ) 的值, 即:
 
@@ -54,7 +54,7 @@
 
 可以为什么Hessian矩阵能够告诉我们这些信息呢? 下面, 我们再来审视一下Hessian矩阵的特征值到底意味着什么:
 
-考虑一个驻点 ![](http://latex.codecogs.com/gif.latex?\ W^* ), 对于该点附近邻域的另一点![](http://latex.codecogs.com/gif.latex?\ W ), 我们对损失函数![](http://latex.codecogs.com/gif.latex?\ l(W) ) 进行泰勒展开可以得到: ![](http://latex.codecogs.com/gif.latex?\ l(W) \\approx l(W^*) + (W - W^*)^T \\nabla l(W^*) + \\frac12 (W - W^*)^T H(W^*) (W - W^*)  ). 其中 ![](http://latex.codecogs.com/gif.latex?\ \\nabla l(W^*) ) 为 ![](http://latex.codecogs.com/gif.latex?\ W^* ) 对应的梯度, ![](http://latex.codecogs.com/gif.latex?\ H(W^*) ) 为对应Hessian矩阵, ![](http://latex.codecogs.com/gif.latex?\ W-W^* ) 就是我们从![](http://latex.codecogs.com/gif.latex?\ W^* ) 移动到 ![](http://latex.codecogs.com/gif.latex?\ W ) 的这一步(包含大小和方向).
+考虑一个驻点 ![](http://latex.codecogs.com/gif.latex?W^* ), 对于该点附近邻域的另一点![](http://latex.codecogs.com/gif.latex?\ W ), 我们对损失函数![](http://latex.codecogs.com/gif.latex?\ l(W) ) 进行泰勒展开可以得到: ![](http://latex.codecogs.com/gif.latex?\ l(W) \\approx l(W^*) + (W - W^*)^T \\nabla l(W^*) + \\frac12 (W - W^*)^T H(W^*) (W - W^*)  ). 其中 ![](http://latex.codecogs.com/gif.latex?\ \\nabla l(W^*) ) 为 ![](http://latex.codecogs.com/gif.latex?\ W^* ) 对应的梯度, ![](http://latex.codecogs.com/gif.latex?\ H(W^*) ) 为对应Hessian矩阵, ![](http://latex.codecogs.com/gif.latex?\ W-W^* ) 就是我们从![](http://latex.codecogs.com/gif.latex?\ W^* ) 移动到 ![](http://latex.codecogs.com/gif.latex?W ) 的这一步(包含大小和方向).
 
 根据定义我们有 ![](http://latex.codecogs.com/gif.latex?\ \\nabla l(W^*) = 0 ), 因此, ![](http://latex.codecogs.com/gif.latex?\ W ) 和 ![](http://latex.codecogs.com/gif.latex?\ W^* ) 对应损失函数的差别即为 ![](http://latex.codecogs.com/gif.latex?\ l(W) - l(W^*) \\approx  \\frac12 (W - W^*)^T H(W^*) (W - W^*)  ). 通过对应Hessian矩阵的谱分解, 我们得到 ![](http://latex.codecogs.com/gif.latex?\ l(W) - l(W^*) \\approx  \\frac12 (W - W^*)^T U_H \\Sigma_H U_H^T (W - W^*) = \\sum \\sigma_i \\frac12 (W - W^*)^T u_i u_i^T (W - W^*)  ).
 
