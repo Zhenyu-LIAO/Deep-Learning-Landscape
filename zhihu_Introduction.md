@@ -34,42 +34,47 @@ GitHub链接: [https://github.com/Zhenyu-LIAO/Deep-Learning-Landscape](https://g
 
 我们首先介绍一些和地貌问题有关的基本概念：梯度, Hesian矩阵, 损失地貌的全局最小, 局部最小和鞍点(saddle point)
 
-对于一个光滑的损失函数 ![](http://latex.codecogs.com/gif.latex?l:\\mathbb{R}^n\\rightarrow\\mathbb{R}), ![](http://latex.codecogs.com/gif.latex?x) 是该损失函数的**驻点(stationary point)**当且仅当对应梯度 ![](http://latex.codecogs.com/gif.latex?\\nabla{l(x)}=0). 驻点的类别由 **Hessian矩阵** ![](http://latex.codecogs.com/gif.latex?\\nabla^2l(x)) 来判断：
-* 如果 ![](http://latex.codecogs.com/gif.latex?\\nabla^2l(x) )的所有特征值为正, 驻点 ![](http://latex.codecogs.com/gif.latex?x) 是**局部最小点**;
-* 如果 ![](http://latex.codecogs.com/gif.latex?\\nabla^2l(x))的所有特征值为负, 驻点 ![](http://latex.codecogs.com/gif.latex?x) 是**局部最大点**；
-* 如果 ![](http://latex.codecogs.com/gif.latex?\\nabla^2l(x)) 特征值有正有负, 驻点 ![](http://latex.codecogs.com/gif.latex?x) 是**鞍点**;
-* 如果对于一个鞍点 ![](http://latex.codecogs.com/gif.latex?x)， ![](http://latex.codecogs.com/gif.latex?\\nabla^2l(x)) 有零特征值， 则称 ![](http://latex.codecogs.com/gif.latex?x) 为**退化的鞍点** (degenerate saddle point).
+对于一个光滑的损失函数 $l:\mathbb{R}^n \mapsto \mathbb{R}$, $x$ 是该损失函数的**驻点(stationary point)**当且仅当对应梯度 $\nabla{l(x)}=0$. 驻点的类别由 **Hessian矩阵** $\nabla^2 l(x)$ 来判断：
+* 如果 $\nabla^2 l(x) $ 的所有特征值为正, 驻点 $x$ 是**局部最小点**;
+* 如果 $\nabla^2 l(x)$的所有特征值为负, 驻点 $x$ 是**局部最大点**；
+* 如果 $\nabla^2 l(x)$ 特征值有正有负, 驻点 $x$ 是**鞍点**;
+* 如果对于一个鞍点 $x$，$\nabla^2 l(x)$ 有零特征值， 则称 $x$ 为**退化的鞍点** (degenerate saddle point).
 
 在了解了上面定义的基础上, 我们正式给出一直谈到的**地貌**问题的定义:
 
->考虑权重矩阵 ![](http://latex.codecogs.com/gif.latex?W=(W_1,...,W_H)) 所构成的空间 ![](http://latex.codecogs.com/gif.latex?\\Xi), 空间中的每一点和一个(不同的)神经网络模型一一对应, 并且对应一个唯一的损失函数 ![](http://latex.codecogs.com/gif.latex?l(W)) 的值 (反之不然, 同一个损失函数值可能对应多个不同的![](http://latex.codecogs.com/gif.latex?W)). 深度学习地貌问题讨论的就是该空间中点和对应损失函数之间的关系以及不同的算法对于该空间的搜索能力(即, 不同的算法在空间中的运动轨迹).
+>考虑权重矩阵 $W=(W_1,...,W_H)$ 所构成的空间 $\Xi$, 空间中的每一点和一个(不同的)神经网络模型一一对应, 并且对应一个唯一的损失函数 $l(W)$ 的值 (反之不然, 同一个损失函数值可能对应多个不同的$W$). 深度学习地貌问题讨论的就是该空间中点和对应损失函数之间的关系以及不同的算法对于该空间的搜索能力(即, 不同的算法在空间中的运动轨迹).
 
-另外, 对于光滑的损失函数 ![](http://latex.codecogs.com/gif.latex?l), Hessian矩阵是对称阵, 可以写成谱分解写成![](http://latex.codecogs.com/gif.latex?U\\Sigma{U^T}=\\sum{u_iu_i^T}\\sigma_i) 其中![](http://latex.codecogs.com/gif.latex?(\\sigma_i,u_i)) 为对应的特征值和特征向量.
+另外, 对于光滑的损失函数 $l$, Hessian矩阵是对称阵, 可以写成谱分解写成$U\Sigma{U^T}=\sum{u_iu_i^T}\sigma_i$ 其中$(\sigma_i,u_i)$ 为对应的特征值和特征向量.
 
-显然, 在地貌问题中, Hessian矩阵扮演着一个非常重要的角色. 根据上面的定义, 其特征值直接决定了空间中对应点附近邻域中的损失函数 ![](http://latex.codecogs.com/gif.latex?l) 的值, 即:
+显然, 在地貌问题中, Hessian矩阵扮演着一个非常重要的角色. 根据上面的定义, 其特征值直接决定了空间中对应点附近邻域中的损失函数 $l$ 的值, 即:
 
-* 如果该点(记为 ![](http://latex.codecogs.com/gif.latex?W))为局部最小值, 则附近邻域的损失函数值都**严格大于**其对应的损失函数 ![](http://latex.codecogs.com/gif.latex?l(W)). 对应的结果就是, 当算法在 ![](http://latex.codecogs.com/gif.latex?W) 点并尝试进行下一步移动是, 附近空间的每个方向都一定导致损失函数增大.
-* 如该点为局部最大值, 则附近邻域的损失函数值都**严格小于**其对应的损失函数 ![](http://latex.codecogs.com/gif.latex?l(W)), 因此, 当算法在 ![](http://latex.codecogs.com/gif.latex?W) 点并尝试进行下一步移动是, 附近空间的每个方向都一定导致损失函数减小.
-* 如果该点为鞍点, 则附近邻域的损失函数值都可能大于, 小于或者等于其对应的损失函数 ![](http://latex.codecogs.com/gif.latex?l(W)), 因此, 当算法在 ![](http://latex.codecogs.com/gif.latex?W) 点并尝试进行下一步移动是, 附近空间的存在一些方向可以使损失函数增大, 另一些方向使其减小, 还有一些方向则不会使之发生变化.
+* 如果该点(记为 $W$)为局部最小值, 则附近邻域的损失函数值都**严格大于**其对应的损失函数 $l(W)$. 对应的结果就是, 当算法在 $W$ 点并尝试进行下一步移动是, 附近空间的每个方向都一定导致损失函数增大.
+* 如该点为局部最大值, 则附近邻域的损失函数值都**严格小于**其对应的损失函数 $l(W)$, 因此, 当算法在 $W$ 点并尝试进行下一步移动是, 附近空间的每个方向都一定导致损失函数减小.
+* 如果该点为鞍点, 则附近邻域的损失函数值都可能大于, 小于或者等于其对应的损失函数 $l(W)$, 因此, 当算法在 $W$ 点并尝试进行下一步移动是, 附近空间的存在一些方向可以使损失函数增大, 另一些方向使其减小, 还有一些方向则不会使之发生变化.
 
-当![](http://latex.codecogs.com/gif.latex?W) 为一维时, 图示如下:
+当$W$ 为一维时, 图示如下:
 
 <img src='https://d.pr/i/kEUPNf+'>
 (图片来源: Ian Goodfellow [Deep Learning](http://www.deeplearningbook.org/) Section 4)
 
 可以为什么Hessian矩阵能够告诉我们这些信息呢? 下面, 我们再来审视一下Hessian矩阵的特征值到底意味着什么:
 
-考虑一个驻点 ![](http://latex.codecogs.com/gif.latex?W^*),对于该点附近邻域的另一点![](http://latex.codecogs.com/gif.latex?W), 我们对损失函数![](http://latex.codecogs.com/gif.latex?l(W)) 进行泰勒展开可以得到: ![](http://latex.codecogs.com/gif.latex?l(W)\\approx{l(W^*)}+(W-W^*)^T\\nabla{l(W^{*})}+\\frac{1}{2}(W-W^*)^TH(W^*)(W-W^*)). 其中 ![](http://latex.codecogs.com/gif.latex?\\nabla{l(W^*)}) 为 ![](http://latex.codecogs.com/gif.latex?W^*) 对应的梯度, ![](http://latex.codecogs.com/gif.latex?H(W^*)) 为对应Hessian矩阵, ![](http://latex.codecogs.com/gif.latex?W-W^*) 就是我们从![](http://latex.codecogs.com/gif.latex?W^*) 移动到 ![](http://latex.codecogs.com/gif.latex?W) 的这一步(包含大小和方向).
+考虑一个驻点 $W^*$,对于该点附近邻域的另一点$W$, 我们对损失函数$l(W)$ 进行泰勒展开可以得到: 
+$$l(W)\approx{l(W^*)}+(W-W^*)^T\nabla{l(W^{*})}+\frac{1}{2}(W-W^*)^T H(W^*)(W-W^*). $$
+其中 $\nabla{l(W^*)}$ 为 $W^*$ 对应的梯度, $H(W^*)$ 为对应Hessian矩阵, $W-W^*$ 就是我们从$W^*$ 移动到 $W$ 的这一步(包含大小和方向).
 
-根据定义我们有 ![](http://latex.codecogs.com/gif.latex?\\nablal(W^*)=0), 因此, ![](http://latex.codecogs.com/gif.latex?W) 和 ![](http://latex.codecogs.com/gif.latex?W^*) 对应损失函数的差别即为 ![](http://latex.codecogs.com/gif.latex?l(W)-l(W^*)\\approx\\frac{1}{2}(W-W^*)^TH(W^*)(W-W^*)). 通过对应Hessian矩阵的谱分解, 我们得到 ![](http://latex.codecogs.com/gif.latex?l(W)-l(W^*)\\approx\\frac{1}{2}(W-W^*)^TU_H\\Sigma_HU_H^T(W-W^*)=\\sum\\sigma_i\\frac{1}{2}(W-W^*)^Tu_iu_i^T(W-W^*)).
+根据定义我们有 $\nabla l(W^*)=0$, 因此, $W$ 和 $W^*$ 对应损失函数的差别即为
+$$l(W)-l(W^*)\approx\frac{1}{2}(W-W^*)^T H(W^*)(W-W^*).$$ 
+过对应Hessian矩阵的谱分解, 我们得到
+$$l(W)-l(W^*)\approx\frac{1}{2}(W-W^*)^TU_H\Sigma_HU_H^T(W-W^*)=\sum\sigma_i\frac{1}{2}(W-W^*)^Tu_iu_i^T(W-W^*).$$
 
-因此, 如果假设在驻点![](http://latex.codecogs.com/gif.latex?W^*) 我们有一个非常美好的线性空间(事实情况可能比这复杂的多), 我们可以研究这个线性空间的基(basis)和维度(dimension). 那么, 如果我们选择沿着特征值![](http://latex.codecogs.com/gif.latex?\\sigma_i>0) 对应的特征向量![](http://latex.codecogs.com/gif.latex?u_i) 的方向移动的话 (其他方向分量为0), 可以得到 ![](http://latex.codecogs.com/gif.latex?l(W)-l(W^*)>0). 也就是说, 当我们考虑驻点![](http://latex.codecogs.com/gif.latex?W^*) 附近空间的时候, 正的特征值对以特征向量的方向就是上升的方向. 反正, 负特征值对应的方向就是下降的方向, 而零特征值对应的方向则无法判断, 往往需要更加高阶的信息(更进一步的泰勒展开). 
+因此, 如果假设在驻点$W^*$ 我们有一个非常美好的线性空间(事实情况可能比这复杂的多), 我们可以研究这个线性空间的基(basis)和维度(dimension). 那么, 如果我们选择沿着特征值$\sigma_i>0$ 对应的特征向量$u_i$ 的方向移动的话 (其他方向分量为0), 可以得到 $l(W)-l(W^*)>0$. 也就是说, 当我们考虑驻点$W^*$ 附近空间的时候, 正的特征值对以特征向量的方向就是上升的方向. 反正, 负特征值对应的方向就是下降的方向, 而零特征值对应的方向则无法判断, 往往需要更加高阶的信息(更进一步的泰勒展开). 
 
 **备注1**: 那么在深度学习的问题中, 人们一直在讨论训练深度神经网络中**最大的障碍**可能是什么: 在认为局部最大点不存在的情况下(在一些特定的网络结构和损失函数的情形下, 这一点已经被证明了), 需要关注的就是局部最小点和鞍点. 值得注意的是, **局部**最小值只描述了对应驻点附近邻域的**局部**情况: 我们并不了解更远的地方发生了什么, 是否有更小的值. 在所有局部最小值中, 我们将其中对应损失函数值最小的称之为**全局最小值**, 这也是我们能到达到的损失函数的**最小值**, 也是对应地貌的**最低点**. 下图形象的展示了这个问题: 
 <img src='https://d.pr/i/NKLDNT+'>
 (图片来源: Ian Goodfellow [Deep Learning](http://www.deeplearningbook.org/) Section 4)
 
-**备注2**: 一个非常有意思的问题是, 如果算法并严格不沿着对应特征向量的方向移动的时候, 会发生什么呢? 换言之, 如果移动方向在不同符号特征值对应的特征值向量上都有不为零的分量, 那么会发生什么的? 算法会下降还是上升呢?  为了讨论这个问题, 我们考虑对应问题的**连续**版本: 即, 算法可以在空间![](http://latex.codecogs.com/gif.latex?\\Xi) 中连续的移动, 自变量变为时间![](http://latex.codecogs.com/gif.latex?t). 也就是说, 随着时间变化, 算法在空间中画出一条连续的轨迹. 我们知道这样的连续系统中会出现**指数收敛**的情况, 举一个一维情况下的例子, 考虑一个由如下常微分方程(ODE)表述的动力系统: ![](http://latex.codecogs.com/gif.latex?\\frac{dx}{dt}=\\alpha{x}), ![](http://latex.codecogs.com/gif.latex?x=0) 是该系统的一个平衡点(或者驻点, 由于对应梯度为零), 而这样的方程的解为 ![](http://latex.codecogs.com/gif.latex?x=x_0\\exp(\\alpha{t})), 其中![](http://latex.codecogs.com/gif.latex?x_0) 为其初值(初始位置). 因此, 当![](http://latex.codecogs.com/gif.latex?\\alpha>0) 时, ![](http://latex.codecogs.com/gif.latex?x) 将会随时间指数增大, 从而远离对应的驻点(**发散**). 相反的, 如果![](http://latex.codecogs.com/gif.latex?\\alpha<0), ![](http://latex.codecogs.com/gif.latex?x) 将会随时间指数减小至零, 从而收敛到对应的驻点(**收敛**).  事实上, 在上述的梯度系统中, 也有类似的情况发生. 当我们考虑一个对应驻点附近的线性空间的时候, 我们总可以通过线性变化将算法移动的方向投影在Hessian特征向量所确定的坐标系中. 那么, 对应正特征值方向上的投影的部分就是指数发散, 从而导致我们离开对应的驻点![](http://latex.codecogs.com/gif.latex?W^*). 因此, 我们可以总结, 一旦我们移动的方向在对应正特征值方向上投影不为零, 算法的运动轨迹就会飞速的远离对应驻点. 当且仅当移动方向垂直于**所有**正特征值对应特征向量确定的空间的之后, 我们才会靠近对应驻点. 如下图所示:
+**备注2**: 一个非常有意思的问题是, 如果算法并严格不沿着对应特征向量的方向移动的时候, 会发生什么呢? 换言之, 如果移动方向在不同符号特征值对应的特征值向量上都有不为零的分量, 那么会发生什么的? 算法会下降还是上升呢?  为了讨论这个问题, 我们考虑对应问题的**连续**版本: 即, 算法可以在空间$\Xi$ 中连续的移动, 自变量变为时间$t$. 也就是说, 随着时间变化, 算法在空间中画出一条连续的轨迹. 我们知道这样的连续系统中会出现**指数收敛**的情况, 举一个一维情况下的例子, 考虑一个由如下常微分方程(ODE)表述的动力系统: $\frac{dx}{dt}=\alpha{x}$, $x=0$ 是该系统的一个平衡点(或者驻点, 由于对应梯度为零), 而这样的方程的解为 $x=x_0\exp(\alpha{t})$, 其中$x_0$ 为其初值(初始位置). 因此, 当$\alpha>0$ 时, $x$ 将会随时间指数增大, 从而远离对应的驻点(**发散**). 相反的, 如果$\alpha<0$, $x$ 将会随时间指数减小至零, 从而收敛到对应的驻点(**收敛**).  事实上, 在上述的梯度系统中, 也有类似的情况发生. 当我们考虑一个对应驻点附近的线性空间的时候, 我们总可以通过线性变化将算法移动的方向投影在Hessian特征向量所确定的坐标系中. 那么, 对应正特征值方向上的投影的部分就是指数发散, 从而导致我们离开对应的驻点$W^*$. 因此, 我们可以总结, 一旦我们移动的方向在对应正特征值方向上投影不为零, 算法的运动轨迹就会飞速的远离对应驻点. 当且仅当移动方向垂直于**所有**正特征值对应特征向量确定的空间的之后, 我们才会靠近对应驻点. 如下图所示:
 <img src='https://d.pr/i/9sG7VF+' style="width:200px;height:200px;">
 基于上面的描述, 我们就有了一种描述算法在一个对应驻点附近运动情况的方法: 如果依旧在线性空间的基础上考虑, 我们可以将该驻点邻域空间划分成三个子空间: 稳定(stable), 对应Hessian特征值为负; 不稳定(unstable), 对应特征值为正数和对应特征值为零的(center). 根据对应线性子空间的维度来判断算法被该驻点**吸引**的可能性大小(通常称之为分析basin of attraction). 事实上, [Morse theory](https://en.wikipedia.org/wiki/Morse_theory)给出了非退化驻点(non-degenerate critical point, 对应Hessain矩阵不包含零特征值)的一些很有趣/很强的结果, 然而对应退化的驻点, 更近一步说, 退化的鞍点则需要进一步更加深入的研究.
 
